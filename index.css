@@ -1,0 +1,34 @@
+body {
+  margin-left: 20%;
+  margin-right: 20%;
+  position: relative;
+  /* margin: 20%; */
+}
+
+.jumbotron {
+  background-image: url("paw.png");
+  background-size: 70%;
+  background-position-x: center;
+  background-position-y: 15%;
+  background-repeat: no-repeat;
+  text-align: center;
+  background-color: rgb(241, 224, 224, 0.7) !important;
+}
+
+.lead {
+  color: black !important;
+  opacity: 100%;
+}
+
+h1 {
+  color: black !important;
+  opacity: 100%;
+}
+
+.btn-info {
+  background-color: #f4acb7 !important;
+  border-color: #f8bac5 !important;
+  border-width: 2pt !important;
+  background-image: url("paw.png") !important;
+  color: grey;
+}

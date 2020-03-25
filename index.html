@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>ToDoMoew</title>
+    <meta name="description" content="a Todo App to Collect Cats" />
+    <meta name="author" content="BBBB" />
+
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ToDoMoew</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Tasks <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Cats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Friends</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="jumbotron">
+      <div class="mx-auto" style="width: 50%;">
+        <h1 class="display-4">To Do</h1>
+        <p class="lead">
+          Get your tasks done with cats!
+        </p>
+        <hr class="my-4" />
+        <form>
+          <div class="form-group">
+            <input
+              type="task"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="What are your goals today?"
+            />
+          </div>
+          <a class="btn btn-info btn-lg pawBtn" href="#" role="button">ADD</a>
+        </form>
+      </div>
+    </div>
+    <button class="btn btn-default">
+      <img src="paw.png" width="20" />
+      Sign In with Facebook
+    </button>
+
+    <div class="mx-auto" style="width: 40%;">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck1" />
+        <label class="custom-control-label" for="customCheck1">MyTask1</label
+        ><br />
+
+        <label class="custom-control-label" for="customCheck2">MyTask2</label
+        ><br />
+      </div>
+    </div>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
