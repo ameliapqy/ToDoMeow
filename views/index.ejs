@@ -5,6 +5,11 @@
     <meta charset="utf-8" />
 
     <title>ToDoMoew</title>
+    <script
+      src="https://code.jquery.com/jquery-1.12.3.min.js"
+      integrity="sha384-ugqypGWrzPLdx2zEQTF17cVktjb01piRKaDNnbYGRSxyEoeAm+MKZVtbDUYjxfZ6"
+      crossorigin="anonymous"
+    ></script>
     <meta name="description" content="a Todo App to Collect Cats" />
     <meta name="author" content="BBBB" />
 
@@ -60,16 +65,18 @@
           Get your tasks done with cats!
         </p>
         <hr class="my-4" />
-        <form>
+        <form id="contact-form" method="POST" action="/tasks">
           <div class="form-group">
             <input
-              type="task"
+              type="text"
+              name="task"
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="What are your goals today?"
             />
           </div>
-          <a class="btn btn-info btn-lg pawBtn" href="#" role="button">ADD</a>
+          <!-- <a class="btn btn-info btn-lg pawBtn" href="#" role="button">ADD</a> -->
+          <button type="submit">Add</button>
         </form>
       </div>
     </div>

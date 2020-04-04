@@ -1,26 +1,30 @@
 var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
-app.engine("html", require("ejs").renderFile);
-var http = require("http");
-var fs = require("fs"); //file system to read file
-//app.set("view engine", "html");
-// This is the definition of the Person class -- DO NOT CHANGE IT!
-class Person {
-  constructor(id, status, date) {
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+var currid = 0;
+//mention the public dir from serving
+app.use(express.static(__dirname + "/views"));
+app.set("view engine", "ejs");
+// This is the definition of the Task class -- DO NOT CHANGE IT!
+class Task {
+  constructor(id, name, status, date) {
+    this.name = name;
     this.id = id;
     this.status = status;
     this.date = date;
   }
 }
 
-// This is the map of IDs to Person objects -- DO NOT CHANGE IT!
-var people = new Map();
-people.set("1234", new Person("1234", "safe", new Date().getTime()));
-people.set("5678", new Person("5678", "missing", new Date().getTime()));
-people.set("1111", new Person("1111", "safe", new Date().getTime()));
-people.set("4321", new Person("4321", "deceased", new Date().getTime()));
-people.set("5555", new Person("5555", "hospitalized", new Date().getTime()));
-people.set("3500", new Person("3500", "safe", new Date().getTime()));
+// This is the map of IDs to Task objects -- DO NOT CHANGE IT!
+var tasks = new Map();
+tasks.set("0", new Task("0", "play Zelda", "current", new Date().getTime()));
+tasks.set("1", new Task("1", "finish CIS350", "missed", new Date().getTime()));
+tasks.set("2", new Task("2", "run a lap", "completed", new Date().getTime()));
+tasks.set("3", new Task("3", "read book", "current", new Date().getTime()));
 
 // This is the '/test' endpoint that you can use to check that this works
 // Do not change this, as you will want to use it to check the test code in Part 2
@@ -29,71 +33,63 @@ app.use("/test", (req, res) => {
   var data = { message: "It works!" };
   // send it back
   //res.json(data);
-  res.render("index.html");
 });
 
-// This is the endpoint you need to implement in Part 1 of this assignment
 app.use("/get", (req, res) => {
   var ids = req.query.id;
   var jArray = [];
-  var person;
+  var task;
   if (Array.isArray(ids)) {
     ids.forEach(id => {
-      person = people.get(id);
-      if (person) {
-        jArray.push({ id: id, status: person.status, date: person.date });
+      task = tasks.get(id);
+      if (task) {
+        jArray.push({ id: id, status: task.status, date: task.date });
       } else if (id) {
-        people.set(id, new Person(id, "unknown", new Date().getTime()));
-        people.get(id);
-        jArray.push({ id: id, status: person.status, date: person.date });
+        tasks.set(id, new Task(id, "unknown", new Date().getTime()));
+        tasks.get(id);
+        jArray.push({ id: id, status: task.status, date: task.date });
       }
     });
   } else {
-    person = people.get(ids);
-    if (person) {
-      jArray.push({ id: ids, status: person.status, date: person.date });
+    task = tasks.get(ids);
+    if (task) {
+      jArray.push({ id: ids, status: task.status, date: task.date });
     } else if (ids) {
-      people.set(ids, new Person(ids, "unknown", new Date().getTime()));
-      person = people.get(ids);
-      jArray.push({ id: ids, status: person.status, date: person.date });
+      tasks.set(ids, new Task(ids, "unknown", new Date().getTime()));
+      task = tasks.get(ids);
+      jArray.push({ id: ids, status: task.status, date: task.date });
     }
   }
   res.json(jArray);
 });
 
-// -------------------------------------------------------------------------
-// DO NOT CHANGE ANYTHING BELOW HERE!
-
-// This endpoint allows a caller to add data to the Map of Person objects
-// You do not need to do anything with this code; it is only provided
-// as an example but will also be used for grading your code
-app.use("/set", (req, res) => {
+// This endpoint allows a caller to add data to the Map of Task objects
+app.use("/add", (req, res) => {
   // read id and status from query parameters
-  var id = req.query.id;
+  var id = currid++;
   var status = req.query.status;
-  // create new Person object
-  var person = new Person(id, status, new Date().getTime());
+  // create new Task object
+  var task = new Task(id, status, new Date().getTime());
   // add it to Map
-  people.set(id, person);
+  tasks.set(id, task);
   // send it back to caller
-  res.json(person);
+  res.json(task);
 });
 
 // This just sends back a message for any URL path not covered above
 app.use("/", (req, res) => {
-  //res.write("Welcome to to-do meow~.");
-  res.writeHead(200, { "Content-Type": "text/html" });
-  fs.readFile("./index.html", null, function(error, data) {
-    if (error) {
-      res.writeHead(404);
-      res.write("File not found!");
-    } else {
-      res.write(data);
-    }
-    res.end();
-  });
+  res.render("index");
 });
 
+// tasks page
+app.get("/tasks", (req, res) => {
+  res.render("index", { qs: req.query });
+});
+
+app.post("/tasks", urlencodedParser, (req, res) => {
+  console.log(req.body);
+  res.render("index", { qs: req.query });
+});
 // This starts the web server on port 3000.
 app.listen(3000, () => {
   console.log("Listening on port 3000");
