@@ -32,12 +32,12 @@ app.post("/", urlencodedParser, function(req, res) {
 
 app.delete("/:task", function(req, res) {
   res.render("views/index", { tasks: tasks });
+  tasks = tasks.filter(function(todo) {
+    return todo.item.replace(/ /g, "-") !== req.params.item;
+  });
 });
 
 // This starts the web server on port 3000.
 app.listen(3000, () => {
   console.log("Listening on port 3000");
-  tasks = task.filter(function(todo) {
-    return todo.item.replace(/ /g, "-") !== req.params.item;
-  });
 });
