@@ -1,12 +1,12 @@
-//handle ajex request to post/delete items
+//handle ajax request to post/delete items
 $(document).ready(function() {
   $("form").on("submit", function() {
-    var item = $("form input");
-    var todo = { item: item.val() };
+    var task = $("form input");
+    var todo = { task: task.val() };
 
     $.ajax({
       type: "POST",
-      url: "/todo",
+      url: "/",
       data: todo,
       success: function(data) {
         //do something with the data via front-end framework
@@ -23,7 +23,7 @@ $(document).ready(function() {
       .replace(/ /g, "-");
     $.ajax({
       type: "DELETE",
-      url: "/todo/" + item,
+      url: "/" + item,
       success: function(data) {
         //do something with the data via front-end framework
         location.reload();
